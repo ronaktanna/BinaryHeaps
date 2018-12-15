@@ -3,7 +3,7 @@ package main;
 public class MaxHeap {
 	
 	int heapSize; // Current size of the heap
-	int[] arr;
+	int[] arr; // The array representation for the heap
 	int heapCapacity; // MAX nodes the heap can accommodate
 	
 	MaxHeap(int capacity) {
@@ -12,15 +12,27 @@ public class MaxHeap {
 		this.arr = new int[this.heapCapacity];
 	}
 	
+	int leftChild(int index) {
+		return 2*index + 1;
+	}
+	
+	int rightChild(int index) {
+		return 2*index + 2;
+	}
+	
+	int parent(int index) {
+		return (index-1)/2;
+	}
+	
 	/* MaxHeapify the tree from the current index. */
 	public void maxHeapify(int currentIndex) {
 		int leftChildIndex = 2*currentIndex + 1;
 		int rightChildIndex = 2*currentIndex + 2;
 		
 		int largestElementIndex = currentIndex;
-		if (leftChildIndex < this.arr.length && this.arr[leftChildIndex] > this.arr[currentIndex])
+		if (leftChildIndex < this.heapSize && this.arr[leftChildIndex] > this.arr[currentIndex])
 			largestElementIndex = leftChildIndex;
-		if (rightChildIndex < this.arr.length && this.arr[rightChildIndex] > this.arr[currentIndex])
+		if (rightChildIndex < this.heapSize && this.arr[rightChildIndex] > this.arr[currentIndex])
 			largestElementIndex = rightChildIndex;
 		
 		if (largestElementIndex != currentIndex) {
@@ -57,7 +69,7 @@ public class MaxHeap {
 		this.arr[currentIndex] = key;
 		
 		int temp;
-		while (currentIndex != 0 && this.arr[(currentIndex-1)/2] > this.arr[currentIndex]) {
+		while (currentIndex != 0 && this.arr[(currentIndex-1)/2] < this.arr[currentIndex]) {
 			temp = this.arr[currentIndex];
 			this.arr[currentIndex] = this.arr[(currentIndex-1)/2];
 			this.arr[(currentIndex-1)/2] = temp;
