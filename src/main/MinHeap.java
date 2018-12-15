@@ -64,4 +64,39 @@ public class MinHeap {
 			index = this.parent(index);
 		}
 	}
+	
+	public void minHeapify(int currentIndex) {
+		int leftChildIndex = this.leftChild(currentIndex);
+		int rightChildIndex = this.rightChild(currentIndex);
+		
+		int smallestElementIndex = currentIndex;
+		if (leftChildIndex < this.heapSize && this.arr[leftChildIndex] < this.arr[currentIndex])
+			smallestElementIndex = leftChildIndex;
+		else if (rightChildIndex < this.heapSize && this.arr[rightChildIndex] < this.arr[smallestElementIndex])
+			smallestElementIndex = rightChildIndex;
+		
+		if (smallestElementIndex != currentIndex) {
+			int temp;
+			temp = this.arr[smallestElementIndex];
+			this.arr[smallestElementIndex] = this.arr[currentIndex];
+			this.arr[currentIndex] = temp;
+			
+			this.minHeapify(smallestElementIndex);
+		}
+	}
+	
+	public int extractMin() {
+		if (this.heapSize == 0) {
+			System.out.println("No elements in the heap to extract...");
+			return Integer.MAX_VALUE;
+		}
+		
+		int toReturn = this.arr[0];
+		this.arr[0] = this.arr[this.heapSize-1];
+		this.heapSize--;
+		
+		this.minHeapify(0);
+		
+		return toReturn;
+	}
 }
