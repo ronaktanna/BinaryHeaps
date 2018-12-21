@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Arrays;
+
 public class MaxHeap {
 	
 	int heapSize; // Current size of the heap
@@ -119,5 +121,20 @@ public class MaxHeap {
 		return max;
 	}
 	
+	public static void main(String[] args) {
+		MaxHeap maxHeap = new MaxHeap(11);
+    maxHeap.insertKey(1); 
+    maxHeap.insertKey(2); 
+    System.out.println(Arrays.toString(maxHeap.arr));
+    maxHeap.insertKey(3); 
+    maxHeap.insertKey(4); 
+    maxHeap.insertKey(5); 
+    maxHeap.insertKey(6);
+    
+    System.out.println(maxHeap.extractMax());
+    maxHeap.increaseKey(1, 2);
+    System.out.println(maxHeap.extractMax());
+    
+	}
 	
 }
