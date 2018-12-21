@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Arrays;
+
 public class MinHeap {
 	int heapSize;
 	int[] arr;
@@ -49,7 +51,7 @@ public class MinHeap {
 			return;
 		}
 		
-		if (key < this.arr[index]) {
+		if (this.arr[index] < key) {
 			System.out.println("Key is at a lesser value than the one proposed for change...");
 			return;
 		}
@@ -85,6 +87,11 @@ public class MinHeap {
 		}
 	}
 	
+	public void deleteKey(int index) {
+		this.decreaseKey(Integer.MIN_VALUE, index);
+		this.extractMin();
+	}
+	
 	public int extractMin() {
 		if (this.heapSize == 0) {
 			System.out.println("No elements in the heap to extract...");
@@ -98,5 +105,22 @@ public class MinHeap {
 		this.minHeapify(0);
 		
 		return toReturn;
+	}
+	
+	public static void main(String[] args) {
+		MinHeap minHeap = new MinHeap(11);
+    minHeap.insertKey(1); 
+    minHeap.insertKey(2); 
+    System.out.println(Arrays.toString(minHeap.arr));
+    minHeap.deleteKey(1); 
+    minHeap.insertKey(3); 
+    minHeap.insertKey(4); 
+    minHeap.insertKey(5); 
+    minHeap.insertKey(6);
+    
+    System.out.println(minHeap.extractMin());
+    minHeap.decreaseKey(1, 2);
+    System.out.println(minHeap.extractMin());
+    
 	}
 }
