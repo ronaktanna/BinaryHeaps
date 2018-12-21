@@ -26,8 +26,8 @@ public class MaxHeap {
 	
 	/* MaxHeapify the tree from the current index. */
 	public void maxHeapify(int currentIndex) {
-		int leftChildIndex = 2*currentIndex + 1;
-		int rightChildIndex = 2*currentIndex + 2;
+		int leftChildIndex = this.leftChild(currentIndex);
+		int rightChildIndex = this.rightChild(currentIndex);
 		
 		int largestElementIndex = currentIndex;
 		if (leftChildIndex < this.heapSize && this.arr[leftChildIndex] > this.arr[currentIndex])
@@ -69,12 +69,12 @@ public class MaxHeap {
 		this.arr[currentIndex] = key;
 		
 		int temp;
-		while (currentIndex != 0 && this.arr[(currentIndex-1)/2] < this.arr[currentIndex]) {
+		while (currentIndex != 0 && this.arr[this.parent(currentIndex)] < this.arr[currentIndex]) {
 			temp = this.arr[currentIndex];
-			this.arr[currentIndex] = this.arr[(currentIndex-1)/2];
-			this.arr[(currentIndex-1)/2] = temp;
+			this.arr[currentIndex] = this.arr[this.parent(currentIndex)];
+			this.arr[this.parent(currentIndex)] = temp;
 			
-			currentIndex = (currentIndex-1)/2;
+			currentIndex = this.parent(currentIndex);
 		}
 	}
 	
@@ -93,12 +93,12 @@ public class MaxHeap {
 		this.arr[index] = key;
 		int temp;
 		
-		while(index >=0 && this.arr[(index-1)/2] < this.arr[index]) {
+		while(index >=0 && this.arr[this.parent(index)] < this.arr[index]) {
 			temp = arr[index];
-			arr[index] = arr[(index-1)/2];
-			arr[(index-1)/2] = temp;
+			arr[index] = arr[this.parent(index)];
+			arr[this.parent(index)] = temp;
 			
-			index = (index-1)/2;
+			index = this.parent(index);
 		}
 	}
 	
